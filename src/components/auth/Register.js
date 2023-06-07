@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from "../../managers/AuthManager";
+import { registerUser } from "../managers/AuthManager";
 
 export const Register = () => {
   const firstName = useRef();
@@ -10,6 +10,7 @@ export const Register = () => {
   const password = useRef();
   const verifyPassword = useRef();
   const passwordDialog = useRef();
+  const [is_guide, setIsGuide] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
@@ -22,6 +23,7 @@ export const Register = () => {
         last_name: lastName.current.value,
         bio: bio.current.value,
         password: password.current.value,
+        is_guide: is_guide,
       };
 
       registerUser(newUser).then((res) => {
@@ -33,6 +35,10 @@ export const Register = () => {
     } else {
       passwordDialog.current.showModal();
     }
+  };
+
+  const handleCheckboxChange = () => {
+    setIsGuide(!is_guide);
   };
 
   return (
@@ -106,14 +112,27 @@ export const Register = () => {
           />
         </fieldset>
         <fieldset>
-          <label htmlFor="verifyPassword"> Verify Password </label>
+          <label htmlFor="bio"> Story </label>
           <textarea
             ref={bio}
             name="bio"
             className="form-control"
-            placeholder="Let other gamers know a little bit about you..."
+            placeholder="Tell us about your travels..."
           />
         </fieldset>
+        <input
+          type="checkbox"
+          checked={is_guide}
+          onChange={handleCheckboxChange}
+        />
+        I'm a Tour Guide
+        {is_guide ? (
+          <fieldset>
+            <label htmlFor="location">Location</label>
+          </fieldset>
+        ) : (
+          ""
+        )}
         <fieldset
           style={{
             textAlign: "center",

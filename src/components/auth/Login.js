@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../../managers/AuthManager";
-import "./Auth.css";
+import { loginUser } from "../managers/AuthManager";
 
 export const Login = () => {
   const username = useRef();
@@ -38,7 +37,7 @@ export const Login = () => {
       </dialog>
       <section>
         <form className="form--login" onSubmit={handleLogin}>
-          <h1>Level Up</h1>
+          <h1>VoyageHer</h1>
           <h2>Please sign in</h2>
           <fieldset>
             <label htmlFor="inputUsername"> Username address </label>
