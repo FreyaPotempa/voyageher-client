@@ -15,8 +15,16 @@ export const Login = () => {
       password: password.current.value,
     };
     loginUser(user).then((res) => {
-      if ("valid" in res && res.valid && "token" in res) {
-        localStorage.setItem("lu_token", res.token);
+      if (
+        "valid" in res &&
+        res.valid &&
+        "token" in res &&
+        "user_type" in res &&
+        "user_id" in res
+      ) {
+        localStorage.setItem("auth_token", res.token);
+        localStorage.setItem("user_type", res.user_type);
+        localStorage.setItem("user_id", res.user_id);
         navigate("/");
       } else {
         invalidDialog.current.showModal();

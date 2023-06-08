@@ -5,18 +5,25 @@ export const NavBar = () => {
 
   return (
     <ul className="navbar">
+      {localStorage.getItem("user_type") === "guide" ? (
+        <Link to="/eventForm">Create Event</Link>
+      ) : (
+        ""
+      )}
       <Link to="/myevents" className="navbar__item">
         My Events
       </Link>
       <Link to="/dashboard" className="navbar__item">
         Profile
       </Link>
-      {localStorage.getItem("lu_token") !== null ? (
+      {localStorage.getItem("auth_token") !== null ? (
         <li className="nav-item">
           <button
             className="nav-link fakeLink"
             onClick={() => {
-              localStorage.removeItem("lu_token");
+              localStorage.removeItem("auth_token");
+              localStorage.removeItem("user_type");
+              localStorage.removeItem("user_id");
               navigate("/login");
             }}
           >

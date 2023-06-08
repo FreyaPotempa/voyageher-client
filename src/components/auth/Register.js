@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../managers/AuthManager";
+import { getLocations } from "../managers/LocationManager";
 
 export const Register = () => {
   const firstName = useRef();
@@ -10,8 +11,20 @@ export const Register = () => {
   const password = useRef();
   const verifyPassword = useRef();
   const passwordDialog = useRef();
+  const [location_id, setLocationId] = useState(null);
   const [is_guide, setIsGuide] = useState(false);
+  const [locations, setLocations] = useState([]);
   const navigate = useNavigate();
+
+  const getAllLocations = () => {
+    getLocations().then((data) => {
+      setLocations(data);
+    });
+  };
+
+  useEffect(() => {
+    getAllLocations();
+  }, []);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -24,11 +37,14 @@ export const Register = () => {
         bio: bio.current.value,
         password: password.current.value,
         is_guide: is_guide,
+        location_id: location_id,
       };
 
       registerUser(newUser).then((res) => {
-        if ("token" in res) {
-          localStorage.setItem("lu_token", res.token);
+        if ("token" in res && "user_type" in res && "user_id" in res) {
+          localStorage.setItem("auth_token", res.token);
+          localStorage.setItem("user_type", res.user_type);
+          localStorage.setItem("user_id", res.user_id);
           navigate("/");
         }
       });
@@ -39,6 +55,10 @@ export const Register = () => {
 
   const handleCheckboxChange = () => {
     setIsGuide(!is_guide);
+  };
+
+  const handleSelectChange = (e) => {
+    setLocationId(e.target.value);
   };
 
   return (
@@ -128,7 +148,15 @@ export const Register = () => {
         I'm a Tour Guide
         {is_guide ? (
           <fieldset>
-            <label htmlFor="location">Location</label>
+            <label htmlFor="location">Location </label>
+            <select name="location_id" onChange={handleSelectChange}>
+              <option value="0">Select Your Location</option>
+              {locations.map((location) => (
+                <option key={location.id} value={location.id}>
+                  {location.city}
+                </option>
+              ))}
+            </select>
           </fieldset>
         ) : (
           ""
