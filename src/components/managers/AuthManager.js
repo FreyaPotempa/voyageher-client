@@ -1,5 +1,7 @@
+const url = "http://localhost:8000";
+
 export const loginUser = (user) => {
-  return fetch("http://localhost:8000/login", {
+  return fetch(`${url}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -10,7 +12,7 @@ export const loginUser = (user) => {
 };
 
 export const registerUser = (user) => {
-  return fetch("http://127.0.0.1:8000/register", {
+  return fetch(`${url}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
