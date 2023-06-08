@@ -46,3 +46,22 @@ export const updateEvent = (eventObj) => {
     body: JSON.stringify(eventObj),
   });
 };
+
+export const joinEvent = (eventId) => {
+  return fetch(`${url}/events/${eventId}/signup`, {
+    method: "POST",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const leaveEvent = (eventId) => {
+  return fetch(`${url}/events/${eventId}/leave`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+    },
+  });
+};
