@@ -14,30 +14,30 @@ export const EventList = () => {
   const [events, setEvents] = useState([]);
   const [locations, setLocations] = useState([]);
   const [selectEvents, setSelectEvents] = useState([]);
+  const [selectCity, setSelectCity] = useState(0);
 
   const sortByCity = (e) => {
-    const city = parseInt(e.target.value);
-    if (city !== 0) {
-      const eventsByCity = events.filter(
-        (event) => parseInt(event.location_id) === city
-      );
-      setSelectEvents(eventsByCity);
-    } else {
-      setSelectEvents(events);
-    }
+    setSelectCity(parseInt(e.target.value));
   };
 
   const fetchEvents = () => {
     getEvents().then((data) => {
       setEvents(data);
-      setSelectEvents(data);
+      if (selectCity !== 0) {
+        const eventsByCity = data.filter(
+          (d) => parseInt(d.location_id) === selectCity
+        );
+        setSelectEvents(eventsByCity);
+      } else {
+        setSelectEvents(data);
+      }
     });
   };
 
   useEffect(() => {
     fetchEvents();
     getLocations().then((data) => setLocations(data));
-  }, []);
+  }, [selectCity]);
 
   return (
     <>
