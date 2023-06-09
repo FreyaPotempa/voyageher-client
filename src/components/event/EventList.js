@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   deleteEvent,
   getEvents,
@@ -8,36 +8,37 @@ import {
 } from "../managers/EventManager";
 import { JoinLeaveButton } from "./JoinLeaveButton";
 import { getLocations } from "../managers/LocationManager";
+import { getAllGuides } from "../managers/UserManager";
 
 export const EventList = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [locations, setLocations] = useState([]);
   const [selectEvents, setSelectEvents] = useState([]);
+  const [selectCity, setSelectCity] = useState(0);
 
   const sortByCity = (e) => {
-    const city = parseInt(e.target.value);
-    if (city !== 0) {
-      const eventsByCity = events.filter(
-        (event) => parseInt(event.location_id) === city
-      );
-      setSelectEvents(eventsByCity);
-    } else {
-      setSelectEvents(events);
-    }
+    setSelectCity(parseInt(e.target.value));
   };
 
   const fetchEvents = () => {
     getEvents().then((data) => {
       setEvents(data);
-      setSelectEvents(data);
+      if (selectCity !== 0) {
+        const eventsByCity = data.filter(
+          (d) => parseInt(d.location_id) === selectCity
+        );
+        setSelectEvents(eventsByCity);
+      } else {
+        setSelectEvents(data);
+      }
     });
   };
 
   useEffect(() => {
     fetchEvents();
     getLocations().then((data) => setLocations(data));
-  }, []);
+  }, [selectCity]);
 
   return (
     <>
@@ -50,20 +51,30 @@ export const EventList = () => {
       </select>
       <article className="events">
         {selectEvents.map((event) => {
-          console.log("joined", event.attendees);
+          console.log("host", event.host);
           return (
             <section key={`event--${event.id}`} className="event">
               <div className="event_title">
                 <h2>{event.title}</h2>
               </div>
-              <div className="event_description">{event.description}</div>
-              <div className="event_date">{event.date_time}</div>
+              <div className="event_description">
+                Description: {event.description}
+              </div>
+              <div className="event_date"> On: {event.date_time}</div>
               <div className="location">
+                {" "}
+                In:
                 {
                   locations.find(
                     (location) => location.id === event.location_id
                   ).city
                 }
+              </div>
+              <div className="host">
+                Hosted By:{" "}
+                <Link to={`/guides/${event.host?.id}`}>
+                  {event.host?.user?.first_name} {event.host?.user?.last_name}{" "}
+                </Link>
               </div>
               <JoinLeaveButton event={event} fetchEvents={fetchEvents} />
               {parseInt(event.host?.user?.id) ===

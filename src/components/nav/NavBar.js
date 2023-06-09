@@ -5,6 +5,7 @@ export const NavBar = () => {
 
   return (
     <ul className="navbar">
+      <Link to="/">Home</Link>
       {localStorage.getItem("user_type") === "guide" ? (
         <Link to="/eventForm">Create Event</Link>
       ) : (

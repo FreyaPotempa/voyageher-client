@@ -4,6 +4,7 @@ import { Register } from "../auth/Register";
 import { Authorized } from "./Authorized";
 import { EventList } from "../event/EventList";
 import { EventForm } from "../event/EventForm";
+import { Guide } from "../Users/Guide";
 
 export const ApplicationViews = () => {
   return (
@@ -14,6 +15,7 @@ export const ApplicationViews = () => {
         <Route path="/" element={<EventList />} />
         <Route path="/eventForm" element={<EventForm />} />
         <Route path="/events/edit/:event_id" element={<EventForm />} />
+        <Route path="/guides/:guide_id" element={<Guide />} />
       </Route>
     </Routes>
   );
