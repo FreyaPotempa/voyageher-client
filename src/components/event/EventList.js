@@ -9,6 +9,17 @@ import {
 import { JoinLeaveButton } from "./JoinLeaveButton";
 import { getLocations } from "../managers/LocationManager";
 import { getAllGuides } from "../managers/UserManager";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Card,
+  CardHeader,
+  Flex,
+  Heading,
+  Select,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
 export const EventList = () => {
   const navigate = useNavigate();
@@ -42,66 +53,80 @@ export const EventList = () => {
 
   return (
     <>
-      <select name="location" onChange={sortByCity}>
+      <Select name="location" onChange={sortByCity}>
         Sort by City
         <option value="0">Select a City</option>
         {locations.map((location) => (
           <option value={location.id}>{location.city}</option>
         ))}
-      </select>
+      </Select>
       <article className="events">
-        {selectEvents.map((event) => {
-          return (
-            <section key={`event--${event.id}`} className="event">
-              <div className="event_title">
-                <h2>{event.title}</h2>
-              </div>
-              <div className="event_description">
-                Description: {event.description}
-              </div>
-              <div className="event_date"> On: {event.date_time}</div>
-              <div className="location">
-                {" "}
-                In:
-                {
-                  locations.find(
-                    (location) => location.id === event.location_id
-                  ).city
-                }
-              </div>
-              <div className="host">
-                Hosted By:{" "}
-                <Link to={`/guides/${event.host?.id}`}>
-                  {event.host?.user?.first_name} {event.host?.user?.last_name}{" "}
-                </Link>
-              </div>
-              <JoinLeaveButton event={event} fetchEvents={fetchEvents} />
-              {parseInt(event.host?.user?.id) ===
-              parseInt(localStorage.getItem("user_id")) ? (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => navigate(`/events/edit/${event.id}`)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      deleteEvent(event.id).then(() => {
-                        fetchEvents();
-                      })
-                    }
-                  >
-                    Delete
-                  </button>
-                </>
-              ) : (
-                ""
-              )}
-            </section>
-          );
-        })}
+        <SimpleGrid
+          spacing={4}
+          templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+        >
+          {selectEvents.map((event) => {
+            return (
+              <Card maxW="sm" key={`event--${event.id}`} className="event">
+                <CardHeader>
+                  <Flex spacing="4">
+                    <div className="event_title">
+                      <Box>
+                        <Heading size="md">{event.title}</Heading>
+                      </Box>
+                    </div>
+                  </Flex>
+                </CardHeader>
+                <div className="event_description">
+                  Description: {event.description}
+                </div>
+                <div className="event_date"> On: {event.date_time}</div>
+                <div className="location">
+                  {" "}
+                  In:
+                  {
+                    locations.find(
+                      (location) => location.id === event.location_id
+                    ).city
+                  }
+                </div>
+                <div className="host">
+                  Hosted By:{" "}
+                  <Link to={`/guides/${event.host?.id}`}>
+                    {event.host?.user?.first_name} {event.host?.user?.last_name}{" "}
+                  </Link>
+                </div>
+                <JoinLeaveButton event={event} fetchEvents={fetchEvents} />
+                {parseInt(event.host?.user?.id) ===
+                parseInt(localStorage.getItem("user_id")) ? (
+                  <>
+                    <ButtonGroup variant="outline" spacing="6" size="xs">
+                      <Button
+                        colorScheme="blue"
+                        type="button"
+                        onClick={() => navigate(`/events/edit/${event.id}`)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() =>
+                          deleteEvent(event.id).then(() => {
+                            fetchEvents();
+                          })
+                        }
+                      >
+                        Delete
+                      </Button>
+                    </ButtonGroup>
+                  </>
+                ) : (
+                  ""
+                )}
+              </Card>
+            );
+          })}
+        </SimpleGrid>
       </article>
     </>
   );

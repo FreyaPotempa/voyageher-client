@@ -29,7 +29,12 @@ export const Guide = () => {
       <h1>{guide.full_name}</h1>
       <div>About: {guide.bio}</div>
       <div>Located in: {guide.location?.city}</div>
-      <div>Average Rating: {guide.average_rating} </div>
+      <div>
+        Average Rating:{" "}
+        {guide.average_rating === null
+          ? "No Reviews yet"
+          : guide.average_rating}{" "}
+      </div>
       {localStorage.getItem("user_type") === "traveler" ? (
         <>
           <select name="score" onChange={handleGuideRating}>
