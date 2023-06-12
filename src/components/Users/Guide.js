@@ -13,7 +13,6 @@ export const Guide = () => {
 
   const fetchGuide = () => {
     getGuideById(guide_id).then((guideObj) => setGuide(guideObj));
-    console.log("guide", guide);
   };
 
   useEffect(() => {

@@ -51,7 +51,6 @@ export const EventList = () => {
       </select>
       <article className="events">
         {selectEvents.map((event) => {
-          console.log("host", event.host);
           return (
             <section key={`event--${event.id}`} className="event">
               <div className="event_title">
