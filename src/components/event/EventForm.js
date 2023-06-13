@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Form, useNavigate, useParams } from "react-router-dom";
 import {
   createEvent,
   getSingleEvent,
   updateEvent,
 } from "../managers/EventManager";
 import { getLocations } from "../managers/LocationManager";
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Select,
+  Stack,
+} from "@chakra-ui/react";
 
 export const EventForm = () => {
   const { event_id } = useParams();
@@ -34,87 +44,113 @@ export const EventForm = () => {
   };
 
   return (
-    <form className="eventForm">
-      <h2>{event_id ? "Edit " : "Create "} Event</h2>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            name="title"
-            value={currentEvent.title}
-            onChange={changeEventState}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description:</label>
-          <input
-            type="text"
-            name="description"
-            value={currentEvent.description}
-            onChange={changeEventState}
-          />
-        </div>
-        <div>
-          <label htmlFor="img_url">Image link:</label>
-          <input
-            type="url"
-            name="img_url"
-            value={currentEvent.img_url}
-            onChange={changeEventState}
-          />
-        </div>
-        <div>
-          <label htmlFor="date_time">Date:</label>
-          <input
-            type="datetime-local"
-            name="date_time"
-            value={currentEvent.date_time}
-            onChange={changeEventState}
-          />
-        </div>
-        <div>
-          <label htmlFor="duration">Duration:</label>
-          <input
-            type="number"
-            name="duration"
-            value={currentEvent.duration}
-            onChange={changeEventState}
-          />
-        </div>
-        <div>
-          <label htmlFor="available_spots">Total Available Spots:</label>
-          <input
-            type="number"
-            name="available_spots"
-            value={currentEvent.available_spots}
-            onChange={changeEventState}
-          />
-        </div>
-        <div>
-          <label htmlFor="location">Location </label>
-          <select name="location_id" onChange={changeEventState}>
-            <option value="0">Select Your Location</option>
-            {locations.map((location) => (
-              <option key={location.id} value={location.id}>
-                {location.city}
-              </option>
-            ))}
-          </select>
-        </div>
-      </fieldset>
-      <button
-        type="button"
-        onClick={(e) => {
-          if (event_id) {
-            updateEvent(currentEvent).then(() => navigate("/"));
-          } else {
-            createEvent(currentEvent).then(() => navigate("/"));
-          }
-        }}
+    <>
+      <Flex
+        flexDirection="column"
+        width="100wh"
+        height="100vh"
+        backgroundColor="gray.100"
+        justifyContent="center"
       >
-        {event_id ? "Update" : "Create"}
-      </button>
-    </form>
+        <Stack flexDir="column" mb="2" justifyContent="center">
+          <Heading as="h2" size="md">
+            {event_id ? "Edit " : "Create "} Event
+          </Heading>
+          <form className="eventForm">
+            <Stack
+              width="350"
+              spacing={4}
+              p="1rem"
+              backgroundColor="whiteAlpha.900"
+              boxShadow="md"
+            >
+              <FormControl>
+                <FormLabel>Title:</FormLabel>
+                <Input
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  value={currentEvent.title}
+                  onChange={changeEventState}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Description:</FormLabel>
+                <Input
+                  type="text"
+                  name="description"
+                  placeholder="Description"
+                  value={currentEvent.description}
+                  onChange={changeEventState}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Image:</FormLabel>
+                <Input
+                  type="url"
+                  name="img_url"
+                  placeholder="image url"
+                  value={currentEvent.img_url}
+                  onChange={changeEventState}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Select Date and Time:</FormLabel>
+                <Input
+                  placeholder="Select Date and Time"
+                  type="datetime-local"
+                  name="date_time"
+                  value={currentEvent.date_time}
+                  onChange={changeEventState}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Hours of Duration:</FormLabel>
+                <Input
+                  type="number"
+                  placeholder="Duration"
+                  name="duration"
+                  value={currentEvent.duration}
+                  onChange={changeEventState}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Available Spots:</FormLabel>
+                <Input
+                  placeholder="Available Spots"
+                  type="number"
+                  name="available_spots"
+                  value={currentEvent.available_spots}
+                  onChange={changeEventState}
+                />
+              </FormControl>
+              <FormControl>
+                <Select name="location_id" onChange={changeEventState}>
+                  <option value="0">Select Your Location</option>
+                  {locations.map((location) => (
+                    <option key={location.id} value={location.id}>
+                      {location.city}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+              <Button
+                type="button"
+                colorScheme="cyan"
+                onClick={(e) => {
+                  if (event_id) {
+                    updateEvent(currentEvent).then(() => navigate("/"));
+                  } else {
+                    createEvent(currentEvent).then(() => navigate("/"));
+                  }
+                }}
+              >
+                {event_id ? "Update" : "Create"}
+              </Button>
+            </Stack>
+          </form>
+        </Stack>
+      </Flex>
+    </>
   );
 };
