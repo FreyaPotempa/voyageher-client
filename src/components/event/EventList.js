@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as ReactLink } from "react-router-dom";
 import {
   deleteEvent,
   getEvents,
@@ -95,7 +95,11 @@ export const EventList = () => {
                   </div>
                   <div className="host">
                     Hosted By:{" "}
-                    <Link color="#0099D6" to={`/guides/${event.host?.id}`}>
+                    <Link
+                      as={ReactLink}
+                      color="#0099D6"
+                      to={`/guides/${event.host?.id}`}
+                    >
                       {event.host?.user?.first_name}{" "}
                       {event.host?.user?.last_name}{" "}
                     </Link>
