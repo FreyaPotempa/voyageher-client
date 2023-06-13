@@ -284,7 +284,7 @@ export const Register = () => {
                 m="2"
                 variant="solid"
                 borderRadius={0}
-                colorScheme="teal"
+                colorScheme="cyan"
               >
                 {" "}
                 Register{" "}

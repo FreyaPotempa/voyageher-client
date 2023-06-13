@@ -161,7 +161,7 @@ export const Login = () => {
                   type="submit"
                   variant="solid"
                   borderRadius={0}
-                  colorScheme="teal"
+                  colorScheme="cyan"
                 >
                   Sign In
                 </Button>
