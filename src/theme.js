@@ -5,6 +5,10 @@ import { extendTheme } from "@chakra-ui/react";
 const config = {
   initialColorMode: "dark",
   useSystemColorMode: false,
+  fonts: {
+    heading: `'Lobster', sans-serif`,
+    body: `'Open Sans', sans-serif`,
+  },
 };
 
 // 3. extend the theme

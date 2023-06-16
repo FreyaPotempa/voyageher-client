@@ -1,3 +1,4 @@
+import { Button, ButtonGroup, Text } from "@chakra-ui/react";
 import { joinEvent, leaveEvent } from "../managers/EventManager";
 
 export const JoinLeaveButton = ({ event, fetchEvents }) => {
@@ -8,9 +9,15 @@ export const JoinLeaveButton = ({ event, fetchEvents }) => {
         parseInt(localStorage.getItem("user_id"))
     );
 
-    if (isAttendee) {
+    if (event.attendees.length >= event.available_spots) {
+      return <Text>Sorry, this event is Sold Out</Text>;
+    } else if (isAttendee) {
       return (
-        <button
+        <Button
+          size="sm"
+          colorScheme="blue"
+          ml="2"
+          variant="outline"
           type="button"
           onClick={() =>
             leaveEvent(event.id).then(() => {
@@ -19,11 +26,15 @@ export const JoinLeaveButton = ({ event, fetchEvents }) => {
           }
         >
           Leave
-        </button>
+        </Button>
       );
     } else {
       return (
-        <button
+        <Button
+          size="sm"
+          colorScheme="blue"
+          variant="solid"
+          ml="2"
           type="button"
           onClick={() =>
             joinEvent(event.id).then(() => {
@@ -32,7 +43,7 @@ export const JoinLeaveButton = ({ event, fetchEvents }) => {
           }
         >
           Join
-        </button>
+        </Button>
       );
     }
   } else {

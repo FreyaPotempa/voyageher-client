@@ -23,7 +23,14 @@ export const NavBar = () => {
   };
 
   return (
-    <Flex w="100%" px="6" py="2" mb="6" align="center" justify="space-between">
+    <Flex
+      w="100%"
+      px="6"
+      py="2"
+      mb="0.5"
+      align="center"
+      justify="space-between"
+    >
       <HStack>
         <Link as={ReactLink} to="/">
           {colorMode === "light" ? <LogoSVG /> : <LogoSVGDarkMode />}
