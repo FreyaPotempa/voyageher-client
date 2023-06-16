@@ -7,7 +7,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as ReactLink } from "react-router-dom";
 import { LogoSVG } from "../../images/VoyageHerLogo";
 import { LogoSVGDarkMode } from "../../images/LogoDarkMode";
 
@@ -23,24 +23,41 @@ export const NavBar = () => {
   };
 
   return (
-    <Flex w="100%" px="6" py="2" mb="6" align="center" justify="space-between">
+    <Flex
+      w="100%"
+      px="6"
+      py="2"
+      mb="0.5"
+      align="center"
+      justify="space-between"
+    >
       <HStack>
-        <Link to="/">
+        <Link as={ReactLink} to="/">
           {colorMode === "light" ? <LogoSVG /> : <LogoSVGDarkMode />}
         </Link>
       </HStack>
       <HStack>
         {localStorage.getItem("user_type") === "guide" ? (
-          <Link color="#0099D6" to="/eventForm">
+          <Link color="#0099D6" as={ReactLink} to="/eventForm">
             Create Event
           </Link>
         ) : (
           ""
         )}
-        <Link color="#0099D6" to="/myevents" className="navbar__item">
+        <Link
+          color="#0099D6"
+          as={ReactLink}
+          to="/myevents"
+          className="navbar__item"
+        >
           My Events
         </Link>
-        <Link color="#0099D6" to="/dashboard" className="navbar__item">
+        <Link
+          color="#0099D6"
+          as={ReactLink}
+          to="/dashboard"
+          className="navbar__item"
+        >
           Profile
         </Link>
       </HStack>

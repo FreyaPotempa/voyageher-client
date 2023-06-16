@@ -9,7 +9,7 @@ import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <VoyageHer />
     </ChakraProvider>
