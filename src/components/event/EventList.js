@@ -25,7 +25,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import "./Calendar.css";
 import { Event } from "./Event";
 
 export const EventList = () => {
@@ -88,7 +88,13 @@ export const EventList = () => {
     <>
       <Container maxW="container.sm" mt="6">
         <Flex>
-          <Select width="200px" mb="2" name="location" onChange={sortByCity}>
+          <Select
+            width="400px"
+            p="2"
+            m="4"
+            name="location"
+            onChange={sortByCity}
+          >
             Sort by City
             <option value="0">Select a City</option>
             {locations.map((location) => (
@@ -97,18 +103,16 @@ export const EventList = () => {
               </option>
             ))}
           </Select>
-          <Container>
-            <LightMode>
-              <Calendar
-                selectRange
-                onChange={handleDateChange}
-                value={dateRange}
-              />
-            </LightMode>
+          <Box borderWidth="1px" borderRadius="lg" m="4">
+            <Calendar
+              selectRange
+              onChange={handleDateChange}
+              value={dateRange}
+            />
             <Button type="button" onClick={() => handleDateChange(null)}>
               See All
             </Button>
-          </Container>
+          </Box>
         </Flex>
         <article className="events">
           <SimpleGrid

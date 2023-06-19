@@ -8,6 +8,7 @@ const config = {
   fonts: {
     heading: `'Lobster', sans-serif`,
     body: `'Open Sans', sans-serif`,
+    body: `'Lora Variable', sans-serif`,
   },
 };
 
