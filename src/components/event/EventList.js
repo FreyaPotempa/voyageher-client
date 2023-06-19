@@ -27,8 +27,10 @@ import {
 import Calendar from "react-calendar";
 import "./Calendar.css";
 import { Event } from "./Event";
+import { useTranslation } from "react-i18next";
 
 export const EventList = () => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [locations, setLocations] = useState([]);
@@ -47,7 +49,6 @@ export const EventList = () => {
 
   const filterEvents = (events) => {
     let filteredEvents = events;
-    console.log({ filteredEvents: filteredEvents });
 
     if (selectCity !== 0) {
       filteredEvents = filteredEvents.filter(
@@ -84,6 +85,7 @@ export const EventList = () => {
     getLocations().then((data) => setLocations(data));
   }, [selectCity, dateRange]);
 
+  console.log(i18n.resolvedLanguage);
   return (
     <>
       <Container maxW="container.sm" mt="6">
@@ -95,8 +97,8 @@ export const EventList = () => {
             name="location"
             onChange={sortByCity}
           >
-            Sort by City
-            <option value="0">Select a City</option>
+            {t("sort-by-city")}
+            <option value="0">{t("select-a-city")}</option>
             {locations.map((location) => (
               <option key={location.id} value={location.id}>
                 {location.city}
@@ -108,9 +110,10 @@ export const EventList = () => {
               selectRange
               onChange={handleDateChange}
               value={dateRange}
+              locale={i18n.resolvedLanguage}
             />
             <Button type="button" onClick={() => handleDateChange(null)}>
-              See All
+              {t("see-all")}
             </Button>
           </Box>
         </Flex>
@@ -122,6 +125,7 @@ export const EventList = () => {
             {selectEvents.map((event) => {
               return (
                 <Event
+                  key={event.id}
                   event={event}
                   locations={locations}
                   fetchEvents={fetchEvents}

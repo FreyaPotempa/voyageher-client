@@ -1,7 +1,9 @@
 import { Box, Button } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const UploadWidget = ({ updateImageUrl }) => {
+  const { t } = useTranslation();
   const [img_url, setImgUrl] = useState("");
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
@@ -35,7 +37,7 @@ export const UploadWidget = ({ updateImageUrl }) => {
         m="1"
         onClick={() => widgetRef.current.open()}
       >
-        Upload Image
+        {t("upload-image")}
       </Button>
     </Box>
   );

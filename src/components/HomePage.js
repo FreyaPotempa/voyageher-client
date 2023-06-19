@@ -5,10 +5,12 @@ import "animate.css";
 import "@fontsource/lobster"; // Import Lobster font
 import "@fontsource/open-sans"; // Import Open Sans font
 import "@fontsource-variable/lora";
+import { useTranslation } from "react-i18next";
 
 export const HomePage = () => {
   const [gifLoaded, setGifLoaded] = useState(false);
   const [showStaticImage, setShowStaticImage] = useState(false);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,7 +54,7 @@ export const HomePage = () => {
           fontFamily="Lora Variable"
           color="gray.800"
         >
-          Find Your Next
+          {t("find_your_next")}
         </Heading>
         <Heading
           mt="2"
@@ -62,7 +64,7 @@ export const HomePage = () => {
           fontFamily="Lobster"
           color="#096e86"
         >
-          Adventure
+          {t("adventure")}
         </Heading>
       </Box>
 

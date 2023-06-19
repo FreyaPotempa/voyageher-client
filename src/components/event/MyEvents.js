@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { getEvents } from "../managers/EventManager";
 import { Box, Container, Heading, SimpleGrid } from "@chakra-ui/react";
 import { Event } from "./Event";
+import { useTranslation } from "react-i18next";
 
 export const MyEvents = () => {
+  const { t, i18n } = useTranslation();
   const [events, setEvents] = useState([]);
   const [myEvents, setMyEvents] = useState([]);
   const userType = localStorage.getItem("user_type");
@@ -36,14 +38,20 @@ export const MyEvents = () => {
   return (
     <>
       <Container maxW="container.sm" mt="6">
-        <Heading as="h2">My Events</Heading>
+        <Heading as="h2">{t("my_events")}</Heading>
         <article className="events">
           <SimpleGrid
             spacing={4}
             templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
           >
             {myEvents.map((myEvent) => {
-              return <Event event={myEvent} fetchEvents={fetchEvents} />;
+              return (
+                <Event
+                  key={myEvent.id}
+                  event={myEvent}
+                  fetchEvents={fetchEvents}
+                />
+              );
             })}
           </SimpleGrid>
         </article>

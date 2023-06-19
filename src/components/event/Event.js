@@ -16,8 +16,10 @@ import {
 import { Link as ReactLink, useNavigate } from "react-router-dom";
 import { JoinLeaveButton } from "./JoinLeaveButton";
 import { deleteEvent } from "../managers/EventManager";
+import { useTranslation } from "react-i18next";
 
 export const Event = ({ event, fetchEvents }) => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const isoDateTime = event.date_time;
@@ -30,7 +32,7 @@ export const Event = ({ event, fetchEvents }) => {
     minute: "numeric",
     hour12: true,
   };
-  const humanReadable = dateTime.toLocaleString(undefined, options);
+  const humanReadable = dateTime.toLocaleString(i18n.resolvedLanguage, options);
   const remainingSpots = event.available_spots - event.attendees.length;
   return (
     <Card maxW="sm" key={`event--${event.id}`} className="event">
@@ -44,7 +46,10 @@ export const Event = ({ event, fetchEvents }) => {
           </div>
         </Flex>
         <div className="event_date">{humanReadable}</div>
-        <div> {event.duration} hours</div>
+        <div>
+          {" "}
+          {event.duration} {t("hours")}
+        </div>
         <div className="location">{event.location.city}</div>
         <div className="host">
           {event.host.rating}
@@ -61,7 +66,7 @@ export const Event = ({ event, fetchEvents }) => {
       <Divider />
       <CardFooter>
         <Text>
-          {remainingSpots}/{event.available_spots} spots available
+          {remainingSpots}/{event.available_spots} {t("available-spots")}
         </Text>
         <JoinLeaveButton event={event} fetchEvents={fetchEvents} />
         {parseInt(event.host?.user?.id) ===
@@ -80,7 +85,7 @@ export const Event = ({ event, fetchEvents }) => {
                 type="button"
                 onClick={() => navigate(`/events/edit/${event.id}`)}
               >
-                Edit
+                {t("edit")}
               </Button>
               <Button
                 type="button"
@@ -90,7 +95,7 @@ export const Event = ({ event, fetchEvents }) => {
                   })
                 }
               >
-                Delete
+                {t("delete")}
               </Button>
             </ButtonGroup>
           </>
