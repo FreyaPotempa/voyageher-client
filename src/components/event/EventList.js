@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Link as ReactLink } from "react-router-dom";
-import {
-  deleteEvent,
-  getEvents,
-  joinEvent,
-  leaveEvent,
-} from "../managers/EventManager";
-import { JoinLeaveButton } from "./JoinLeaveButton";
+import { useNavigate } from "react-router-dom";
+import { getEvents } from "../managers/EventManager";
 import { getLocations } from "../managers/LocationManager";
 import { getAllGuides } from "../managers/UserManager";
 import {
+  Avatar,
   Box,
   Button,
   ButtonGroup,
@@ -22,13 +17,16 @@ import {
   Flex,
   Heading,
   Image,
+  LightMode,
   Link,
   Select,
   SimpleGrid,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { Event } from "./Event";
 
 export const EventList = () => {
   const navigate = useNavigate();
@@ -37,6 +35,7 @@ export const EventList = () => {
   const [selectEvents, setSelectEvents] = useState([]);
   const [selectCity, setSelectCity] = useState(0);
   const [dateRange, setDateRange] = useState(null);
+  const { colorMode } = useColorMode();
 
   const sortByCity = (e) => {
     setSelectCity(parseInt(e.target.value));
@@ -99,118 +98,30 @@ export const EventList = () => {
             ))}
           </Select>
           <Container>
-            <Calendar
-              selectRange
-              onChange={handleDateChange}
-              value={dateRange}
-            />
+            <LightMode>
+              <Calendar
+                selectRange
+                onChange={handleDateChange}
+                value={dateRange}
+              />
+            </LightMode>
             <Button type="button" onClick={() => handleDateChange(null)}>
               See All
             </Button>
           </Container>
         </Flex>
-        {/* <Select width="200px" name="guide" onChange={sortByGuide}>
-          Sort by guide
-          <option value="0">Select a Guide</option>
-        </Select> */}
         <article className="events">
           <SimpleGrid
             spacing={4}
             templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
           >
             {selectEvents.map((event) => {
-              const isoDateTime = event.date_time;
-              const dateTime = new Date(isoDateTime);
-              const options = {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              };
-              const humanReadable = dateTime.toLocaleString(undefined, options);
-              const remainingSpots =
-                event.available_spots - event.attendees.length;
               return (
-                <Card maxW="sm" key={`event--${event.id}`} className="event">
-                  <CardBody>
-                    <Image
-                      src={event.img_url}
-                      alt="event image"
-                      borderRadius="lg"
-                    />
-                    <Flex spacing="4">
-                      <div className="event_title">
-                        <Box>
-                          <Heading size="md">{event.title}</Heading>
-                        </Box>
-                      </div>
-                    </Flex>
-                    <div className="event_date">
-                      {humanReadable} * {event.duration} hours
-                    </div>
-                    <div className="location">
-                      {
-                        locations.find(
-                          (location) => location.id === event.location_id
-                        )?.city
-                      }
-                    </div>
-                    <div className="host">
-                      {event.host.rating}
-                      Hosted By:{" "}
-                      <Link
-                        as={ReactLink}
-                        color="#0099D6"
-                        to={`/guides/${event.host?.id}`}
-                      >
-                        {event.host?.user?.first_name}{" "}
-                        {event.host?.user?.last_name}{" "}
-                      </Link>
-                    </div>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <Text>
-                      {remainingSpots}/{event.available_spots} spots available
-                    </Text>
-                    <JoinLeaveButton event={event} fetchEvents={fetchEvents} />
-                    {parseInt(event.host?.user?.id) ===
-                    parseInt(localStorage.getItem("user_id")) ? (
-                      <>
-                        <ButtonGroup
-                          variant="outline"
-                          spacing="2"
-                          size="xs"
-                          mt="4"
-                          mb="4"
-                          ml="2"
-                        >
-                          <Button
-                            colorScheme="blue"
-                            type="button"
-                            onClick={() => navigate(`/events/edit/${event.id}`)}
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            type="button"
-                            onClick={() =>
-                              deleteEvent(event.id).then(() => {
-                                fetchEvents();
-                              })
-                            }
-                          >
-                            Delete
-                          </Button>
-                        </ButtonGroup>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </CardFooter>
-                </Card>
+                <Event
+                  event={event}
+                  locations={locations}
+                  fetchEvents={fetchEvents}
+                />
               );
             })}
           </SimpleGrid>
