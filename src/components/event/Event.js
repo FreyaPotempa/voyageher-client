@@ -32,7 +32,7 @@ export const Event = ({ event, fetchEvents }) => {
     minute: "numeric",
     hour12: true,
   };
-  const humanReadable = dateTime.toLocaleString(undefined, options);
+  const humanReadable = dateTime.toLocaleString(i18n.resolvedLanguage, options);
   const remainingSpots = event.available_spots - event.attendees.length;
   return (
     <Card maxW="sm" key={`event--${event.id}`} className="event">
