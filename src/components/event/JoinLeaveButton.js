@@ -1,7 +1,9 @@
 import { Button, ButtonGroup, Text } from "@chakra-ui/react";
 import { joinEvent, leaveEvent } from "../managers/EventManager";
+import { useTranslation } from "react-i18next";
 
 export const JoinLeaveButton = ({ event, fetchEvents }) => {
+  const { t, i18n } = useTranslation();
   if (localStorage.getItem("user_type") === "traveler") {
     const isAttendee = event.attendees.find(
       (attendee) =>
@@ -10,7 +12,7 @@ export const JoinLeaveButton = ({ event, fetchEvents }) => {
     );
 
     if (event.attendees.length >= event.available_spots) {
-      return <Text>This event is Sold Out</Text>;
+      return <Text>{t("this-event-is-sold-out")}</Text>;
     } else if (isAttendee) {
       return (
         <Button
@@ -25,7 +27,7 @@ export const JoinLeaveButton = ({ event, fetchEvents }) => {
             })
           }
         >
-          Leave
+          {t("leave")}
         </Button>
       );
     } else {
@@ -42,7 +44,7 @@ export const JoinLeaveButton = ({ event, fetchEvents }) => {
             })
           }
         >
-          Join
+          {t("join")}
         </Button>
       );
     }

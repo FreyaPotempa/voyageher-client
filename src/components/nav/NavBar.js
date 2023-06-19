@@ -10,11 +10,19 @@ import {
 import { useNavigate, Link as ReactLink } from "react-router-dom";
 import { LogoSVG } from "../../images/VoyageHerLogo";
 import { LogoSVGDarkMode } from "../../images/LogoDarkMode";
+import { useTranslation, Trans } from "react-i18next";
+
+const lngs = {
+  en: { nativeName: "English" },
+  es: { nativeName: "Espanol" },
+  lol: { nativeName: "Lolcat" },
+};
 
 export const NavBar = () => {
   const navigate = useNavigate();
   const { colorMode, toggleColorMode } = useColorMode();
   const bgColor = useColorModeValue("#096E86", "#7FFFFF");
+  const { t, i18n } = useTranslation();
 
   const LogoutColorMode = () => {
     if (colorMode === "dark") {
@@ -39,7 +47,7 @@ export const NavBar = () => {
       <HStack>
         {localStorage.getItem("user_type") === "guide" ? (
           <Link color="#0099D6" as={ReactLink} to="/eventForm">
-            Create Event
+            {t("create_event")}
           </Link>
         ) : (
           ""
@@ -50,7 +58,7 @@ export const NavBar = () => {
           to="/myevents"
           className="navbar__item"
         >
-          My Events
+          {t("my_events")}
         </Link>
         <Link
           color="#0099D6"
@@ -58,7 +66,7 @@ export const NavBar = () => {
           to="/dashboard"
           className="navbar__item"
         >
-          Profile
+          {t("profile")}
         </Link>
       </HStack>
       <HStack>
@@ -101,6 +109,20 @@ export const NavBar = () => {
             </Tooltip>
           )}
         </Button>
+        <div>
+          {Object.keys(lngs).map((lng) => (
+            <Button
+              key={lng}
+              style={{
+                fontWeight: i18n.resolvedLanguage === lng ? "bold" : "normal",
+              }}
+              type="submit"
+              onClick={() => i18n.changeLanguage(lng)}
+            >
+              {lngs[lng].nativeName}
+            </Button>
+          ))}
+        </div>
         {localStorage.getItem("auth_token") !== null ? (
           <Button
             className="nav-link fakeLink"
@@ -112,15 +134,15 @@ export const NavBar = () => {
               navigate("/login");
             }}
           >
-            Logout
+            {t("logout")}
           </Button>
         ) : (
           <>
             <Link className="nav-link" to="/login">
-              Login
+              {t("login")}
             </Link>
             <Link className="nav-link" to="/register">
-              Register
+              {t("register")}
             </Link>
           </>
         )}{" "}

@@ -18,8 +18,10 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { UploadWidget } from "../../UploadWidget";
+import { useTranslation } from "react-i18next";
 
 export const EventForm = () => {
+  const { t, i18n } = useTranslation();
   const { event_id } = useParams();
   const navigate = useNavigate();
   const [locations, setLocations] = useState([]);
@@ -60,7 +62,7 @@ export const EventForm = () => {
       >
         <Stack flexDir="column" mb="2" justifyContent="center">
           <Heading as="h2" size="md">
-            {event_id ? "Edit " : "Create "} Event
+            {event_id ? `${t("edit")}` : `${t("create")}`} {t("event")}
           </Heading>
           <Container maxW="container.sm">
             <form className="eventForm">
@@ -72,40 +74,40 @@ export const EventForm = () => {
                 boxShadow="md"
               >
                 <FormControl>
-                  <FormLabel>Title:</FormLabel>
+                  <FormLabel>{t("title")}:</FormLabel>
                   <Input
                     type="text"
                     name="title"
-                    placeholder="Title"
+                    placeholder={t("title")}
                     value={currentEvent.title}
                     onChange={changeEventState}
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Description:</FormLabel>
+                  <FormLabel>{t("description")}:</FormLabel>
                   <Input
                     type="text"
                     name="description"
-                    placeholder="Description"
+                    placeholder={t("description")}
                     value={currentEvent.description}
                     onChange={changeEventState}
                   />
                 </FormControl>
                 <UploadWidget updateImageUrl={updateImageUrl} />
                 <FormControl>
-                  <FormLabel>Image:</FormLabel>
+                  <FormLabel>{t("image")}:</FormLabel>
                   <Input
                     type="url"
                     name="img_url"
-                    placeholder="image url"
+                    placeholder={t("image-url")}
                     value={currentEvent.img_url}
                     onChange={changeEventState}
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Select Date and Time:</FormLabel>
+                  <FormLabel>{t("select-date-and-time")}:</FormLabel>
                   <Input
-                    placeholder="Select Date and Time"
+                    placeholder={t("select-date-and-time")}
                     type="datetime-local"
                     name="date_time"
                     value={currentEvent.date_time}
@@ -113,19 +115,19 @@ export const EventForm = () => {
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Hours of Duration:</FormLabel>
+                  <FormLabel>{t("hours-of-duration")}:</FormLabel>
                   <Input
                     type="number"
-                    placeholder="Duration"
+                    placeholder={t("duration")}
                     name="duration"
                     value={currentEvent.duration}
                     onChange={changeEventState}
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Available Spots:</FormLabel>
+                  <FormLabel>{t("available-spots")}:</FormLabel>
                   <Input
-                    placeholder="Available Spots"
+                    placeholder={t("available-spots")}
                     type="number"
                     name="available_spots"
                     value={currentEvent.available_spots}
@@ -134,7 +136,7 @@ export const EventForm = () => {
                 </FormControl>
                 <FormControl>
                   <Select name="location_id" onChange={changeEventState}>
-                    <option value="0">Select Your Location</option>
+                    <option value="0">{t("select-your-location")}</option>
                     {locations.map((location) => (
                       <option key={location.id} value={location.id}>
                         {location.city}
@@ -153,7 +155,7 @@ export const EventForm = () => {
                     }
                   }}
                 >
-                  {event_id ? "Update" : "Create"}
+                  {event_id ? `${t("update")}` : `${t("create")}`}
                 </Button>
               </Stack>
             </form>
