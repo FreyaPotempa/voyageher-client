@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import { VoyageHer } from "./VoyageHer";
 import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react";
 
+import "./i18n";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>

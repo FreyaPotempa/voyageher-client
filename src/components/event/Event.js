@@ -43,9 +43,8 @@ export const Event = ({ event, fetchEvents }) => {
             </Box>
           </div>
         </Flex>
-        <div className="event_date">
-          {humanReadable} * {event.duration} hours
-        </div>
+        <div className="event_date">{humanReadable}</div>
+        <div> {event.duration} hours</div>
         <div className="location">{event.location.city}</div>
         <div className="host">
           {event.host.rating}
