@@ -17,6 +17,7 @@ import {
   Select,
   Stack,
 } from "@chakra-ui/react";
+import { UploadWidget } from "../../UploadWidget";
 
 export const EventForm = () => {
   const { event_id } = useParams();
@@ -42,6 +43,10 @@ export const EventForm = () => {
   const changeEventState = (e) => {
     const { name, value } = e.target;
     setCurrentEvent((currentEvent) => ({ ...currentEvent, [name]: value }));
+  };
+
+  const updateImageUrl = (url) => {
+    setCurrentEvent((currentEvent) => ({ ...currentEvent, img_url: url }));
   };
 
   return (
@@ -86,6 +91,7 @@ export const EventForm = () => {
                     onChange={changeEventState}
                   />
                 </FormControl>
+                <UploadWidget updateImageUrl={updateImageUrl} />
                 <FormControl>
                   <FormLabel>Image:</FormLabel>
                   <Input

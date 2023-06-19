@@ -50,14 +50,14 @@ export const HomePage = () => {
       <Heading
         size="lg"
         as="h2"
-        class="animate__animated animate__fadeInDown animate__delay-1s"
+        className="animate__animated animate__fadeInDown animate__delay-1s"
       >
         Find Your Next
       </Heading>
       <Heading
         as="h1"
         size="4xl"
-        class="animate__animated animate__fadeInLeft animate__delay-1s animate__slow"
+        className="animate__animated animate__fadeInLeft animate__delay-1s animate__slow"
       >
         Adventure
       </Heading>

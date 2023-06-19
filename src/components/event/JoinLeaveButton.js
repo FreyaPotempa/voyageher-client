@@ -10,7 +10,7 @@ export const JoinLeaveButton = ({ event, fetchEvents }) => {
     );
 
     if (event.attendees.length >= event.available_spots) {
-      return <Text>Sorry, this event is Sold Out</Text>;
+      return <Text>This event is Sold Out</Text>;
     } else if (isAttendee) {
       return (
         <Button
