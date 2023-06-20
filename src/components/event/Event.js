@@ -17,10 +17,21 @@ import { Link as ReactLink, useNavigate } from "react-router-dom";
 import { JoinLeaveButton } from "./JoinLeaveButton";
 import { deleteEvent } from "../managers/EventManager";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { Guide } from "../Users/Guide";
 
 export const Event = ({ event, fetchEvents }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLinkClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const isoDateTime = event.date_time;
   const dateTime = new Date(isoDateTime);
@@ -35,7 +46,7 @@ export const Event = ({ event, fetchEvents }) => {
   const humanReadable = dateTime.toLocaleString(i18n.resolvedLanguage, options);
   const remainingSpots = event.available_spots - event.attendees.length;
   return (
-    <Card maxW="sm" key={`event--${event.id}`} className="event">
+    <Card maxW="sm" key={`event--${event.id}`} className="event" boxShadow="md">
       <CardBody>
         <Image src={event.img_url} alt="event image" borderRadius="lg" />
         <Flex spacing="4">
@@ -52,15 +63,18 @@ export const Event = ({ event, fetchEvents }) => {
         </div>
         <div className="location">{event.location.city}</div>
         <div className="host">
-          {event.host.rating}
-          <Link as={ReactLink} color="#0099D6" to={`/guides/${event.host?.id}`}>
-            <Avatar
-              size="md"
-              m="1.5"
-              name={event.host?.user?.first_name}
-              src={event.host?.img}
-            />
+          {event.host.average_rating}
+          <br />
+          Hosted by:
+          <Link as={ReactLink} color="#0099D6" onClick={handleLinkClick}>
+            {" "}
+            {event.host?.user?.first_name}
           </Link>
+          <Guide
+            guide_id={event.host?.id}
+            isOpen={isModalOpen}
+            onClose={closeModal}
+          />
         </div>
       </CardBody>
       <Divider />

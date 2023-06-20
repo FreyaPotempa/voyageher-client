@@ -1,5 +1,7 @@
 import {
   Button,
+  Center,
+  Divider,
   Flex,
   HStack,
   Link,
@@ -46,9 +48,14 @@ export const NavBar = () => {
       </HStack>
       <HStack>
         {localStorage.getItem("user_type") === "guide" ? (
-          <Link color="#0099D6" as={ReactLink} to="/eventForm">
-            {t("create_event")}
-          </Link>
+          <>
+            <Link color="#0099D6" as={ReactLink} to="/eventForm">
+              {t("create_event")}
+            </Link>
+            <Center height="50px">
+              <Divider orientation="vertical" />
+            </Center>
+          </>
         ) : (
           ""
         )}
@@ -60,6 +67,9 @@ export const NavBar = () => {
         >
           {t("my_events")}
         </Link>
+        <Center height="50px">
+          <Divider orientation="vertical" />
+        </Center>
         <Link
           color="#0099D6"
           as={ReactLink}
