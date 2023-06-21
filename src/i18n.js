@@ -4,6 +4,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import en_us from "./locales/en.json";
 import span from "./locales/sp.json";
+import de from "./locales/de.json";
 import lolcat from "./locales/lol.json";
 
 i18n
@@ -25,6 +26,9 @@ i18n
       },
       lol: {
         translation: lolcat,
+      },
+      de: {
+        translation: de,
       },
     },
   });

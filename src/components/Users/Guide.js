@@ -46,7 +46,7 @@ export const Guide = ({ guide_id, isOpen, onClose }) => {
             Average Rating:{" "}
             {guide.average_rating === null
               ? "No Reviews yet"
-              : guide.average_rating.toFixed(1)}{" "}
+              : guide.average_rating?.toFixed(1)}{" "}
           </div>
           <div>Reviews:</div>
           {localStorage.getItem("user_type") === "traveler" ? (

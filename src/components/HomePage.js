@@ -17,22 +17,9 @@ import "@fontsource-variable/lora";
 import { useTranslation } from "react-i18next";
 
 export const HomePage = () => {
-  const [gifLoaded, setGifLoaded] = useState(false);
-  const [showStaticImage, setShowStaticImage] = useState(false);
   const { t, i18n } = useTranslation();
   const { colorMode } = useColorMode();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowStaticImage(true);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleGifLoaded = () => {
-    setGifLoaded(true);
-  };
   return (
     <>
       <Box position="relative">

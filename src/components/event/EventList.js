@@ -214,7 +214,7 @@ export const EventList = () => {
                         handleClearFilters();
                       }}
                     >
-                      View All
+                      {t("see-all")}
                     </Button>
                   </CardFooter>
                 </Card>
