@@ -6,6 +6,7 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Center,
   Divider,
   Flex,
   Heading,
@@ -19,11 +20,15 @@ import { deleteEvent } from "../managers/EventManager";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { Guide } from "../Users/Guide";
+import { StarIcon } from "../../images/StarIcon";
+import { EventDetail } from "./EventDetail";
 
 export const Event = ({ event, fetchEvents }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [reviewLength, setReviewLength] = useState(0);
 
   const handleLinkClick = () => {
     setIsModalOpen(true);
@@ -33,15 +38,17 @@ export const Event = ({ event, fetchEvents }) => {
     setIsModalOpen(false);
   };
 
+  const getGuideRating = (guideRating, guideReviews) => {
+    setRating(guideRating);
+    setReviewLength(guideReviews);
+  };
+
   const isoDateTime = event.date_time;
   const dateTime = new Date(isoDateTime);
   const options = {
     year: "numeric",
     month: "long",
     day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
   };
   const humanReadable = dateTime.toLocaleString(i18n.resolvedLanguage, options);
   const remainingSpots = event.available_spots - event.attendees.length;
@@ -49,31 +56,53 @@ export const Event = ({ event, fetchEvents }) => {
     <Card maxW="sm" key={`event--${event.id}`} className="event" boxShadow="md">
       <CardBody>
         <Image src={event.img_url} alt="event image" borderRadius="lg" />
+        <Divider />
+        <Box m="2">
+          <Box display="flex" alignItems="center">
+            <StarIcon />
+            {"  "} {rating?.toFixed(1)}
+            {/* {Array(5)
+              .fill("")
+              .map((_, i) => (
+                <StarIcon
+                  key={i}
+                  color={i < Math.floor(rating) ? "0099d6" : "#E0E0E0"}
+                />
+              ))} */}
+            <Center ml="2" height="20px">
+              <Divider orientation="vertical" />
+            </Center>
+            <Box as="span" ml="2" color="gray.600" fontSize="sm">
+              <div>
+                {" "}
+                {event.duration} {t("hours")}
+              </div>
+            </Box>
+          </Box>
+        </Box>
         <Flex spacing="4">
           <div className="event_title">
             <Box>
-              <Heading size="md">{event.title}</Heading>
+              <Link as={ReactLink} to={`./eventDetails/${event.id}`}>
+                <Heading size="md">{event.title}</Heading>
+              </Link>
             </Box>
           </div>
         </Flex>
+        <Text className="location" fontWeight="bold">
+          {event.location.city}
+        </Text>
         <div className="event_date">{humanReadable}</div>
-        <div>
-          {" "}
-          {event.duration} {t("hours")}
-        </div>
-        <div className="location">{event.location.city}</div>
         <div className="host">
-          {event.host.average_rating}
-          <br />
-          Hosted by:
+          {t("guide")}:{" "}
           <Link as={ReactLink} color="#0099D6" onClick={handleLinkClick}>
-            {" "}
-            {event.host?.user?.first_name}
+            {event.host?.user?.first_name} {event.host?.user?.last_name}
           </Link>
           <Guide
             guide_id={event.host?.id}
             isOpen={isModalOpen}
             onClose={closeModal}
+            getGuideRating={getGuideRating}
           />
         </div>
       </CardBody>

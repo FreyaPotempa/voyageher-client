@@ -87,11 +87,18 @@ export const NavBar = () => {
         </Link>
       </HStack>
       <HStack>
-        <Button onClick={toggleColorMode} colorScheme="cyan" size="sm">
+        <Select variant="unstyled" width="50px" onChange={handleLanguageChange}>
+          {Object.keys(lngs).map((lng) => (
+            <option value={lng} key={lng}>
+              {lngs[lng].nativeName}
+            </option>
+          ))}
+        </Select>
+        <Button onClick={toggleColorMode} colorScheme="cyan" size="xs">
           {colorMode === "light" ? (
             <Tooltip label="Dark Mode">
               <svg
-                height={20}
+                height={15}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -109,7 +116,7 @@ export const NavBar = () => {
           ) : (
             <Tooltip label="Light Mode">
               <svg
-                height={25}
+                height={20}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -126,15 +133,9 @@ export const NavBar = () => {
             </Tooltip>
           )}
         </Button>
-        <Select variant="unstyled" width="50px" onChange={handleLanguageChange}>
-          {Object.keys(lngs).map((lng) => (
-            <option value={lng} key={lng}>
-              {lngs[lng].nativeName}
-            </option>
-          ))}
-        </Select>
         {localStorage.getItem("auth_token") !== null ? (
           <Button
+            size="xs"
             className="nav-link fakeLink"
             onClick={() => {
               localStorage.removeItem("auth_token");

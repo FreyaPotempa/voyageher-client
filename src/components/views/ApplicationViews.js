@@ -7,6 +7,8 @@ import { EventForm } from "../event/EventForm";
 import { Guide } from "../Users/Guide";
 import { HomePage } from "../HomePage";
 import { MyEvents } from "../event/MyEvents";
+import { EventDetail } from "../event/EventDetail";
+import { Profile } from "../Users/Profile";
 
 export const ApplicationViews = () => {
   return (
@@ -19,6 +21,8 @@ export const ApplicationViews = () => {
         <Route path="/events/edit/:event_id" element={<EventForm />} />
         <Route path="/guides/:guide_id" element={<Guide />} />
         <Route path="/myevents" element={<MyEvents />} />
+        <Route path="/eventDetails/:event_id" element={<EventDetail />} />
+        <Route path="/dashboard" element={<Profile />} />
       </Route>
     </Routes>
   );

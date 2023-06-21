@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
 export const JoinLeaveButton = ({ event, fetchEvents }) => {
   const { t, i18n } = useTranslation();
   if (localStorage.getItem("user_type") === "traveler") {
-    const isAttendee = event.attendees.find(
+    const isAttendee = event.attendees?.find(
       (attendee) =>
         parseInt(attendee.user?.id) ===
         parseInt(localStorage.getItem("user_id"))
     );
 
-    if (event.attendees.length >= event.available_spots) {
+    if (event.attendees?.length >= event.available_spots) {
       return <Text>{t("this-event-is-sold-out")}</Text>;
     } else if (isAttendee) {
       return (
