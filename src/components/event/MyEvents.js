@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getEvents } from "../managers/EventManager";
-import { Box, Container, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, Container, Heading, SimpleGrid } from "@chakra-ui/react";
 import { Event } from "./Event";
 import { useTranslation } from "react-i18next";
 
@@ -38,7 +38,13 @@ export const MyEvents = () => {
   return (
     <>
       <Container maxW="container.sm" mt="6">
-        <Heading as="h2">{t("my_events")}</Heading>
+        <Box height="50" bgColor="blue.200" borderRadius="lg">
+          <Center>
+            <Heading as="h2" fontFamily="Lora">
+              {t("my_events")}
+            </Heading>
+          </Center>
+        </Box>
         <article className="events">
           <SimpleGrid
             spacing={4}

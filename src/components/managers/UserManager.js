@@ -22,3 +22,12 @@ export const sendRating = (rating, guide_id) => {
     body: JSON.stringify(rating),
   }).then((res) => res.json());
 };
+
+export const getCurrentUser = () => {
+  const userId = localStorage.getItem("user_id");
+  return fetch(`${url}/users/${userId}`, {
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+    },
+  }).then((res) => res.json());
+};

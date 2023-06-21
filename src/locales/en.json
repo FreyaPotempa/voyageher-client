@@ -38,5 +38,20 @@
   "sorry-no-events-match-your-search": "Sorry no events match your search.",
   "events-in-date-range": "Events in Date Range",
   "no-adventures-here": "No Adventures Here",
-  "were-working-on-getting-new-tours-every-day-please-check-back-or-click-below-to-browse-all-events": "We're working on getting new tours every day. Please check back, or click below to browse all events."
+  "were-working-on-getting-new-tours-every-day-please-check-back-or-click-below-to-browse-all-events": "We're working on getting new tours every day. Please check back, or click below to browse all events.",
+  "about": "About",
+  "reviews": "Reviews",
+  "reviews-0": "reviews",
+  "rate-this-guide": "Rate This Guide",
+  "select-a-rating": "select a rating",
+  "awful": "Awful",
+  "poor": "Poor",
+  "okay": "Okay",
+  "good": "Good",
+  "great": "Great",
+  "leave-a-review": "Leave a Review",
+  "save-rating": "Save Rating",
+  "close": "Close",
+  "guide": "Guide",
+  "details": "Details"
 }
