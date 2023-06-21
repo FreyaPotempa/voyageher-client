@@ -1,8 +1,11 @@
 import {
   Button,
+  Center,
+  Divider,
   Flex,
   HStack,
   Link,
+  Select,
   Tooltip,
   useColorMode,
   useColorModeValue,
@@ -13,9 +16,10 @@ import { LogoSVGDarkMode } from "../../images/LogoDarkMode";
 import { useTranslation, Trans } from "react-i18next";
 
 const lngs = {
-  en: { nativeName: "English" },
-  es: { nativeName: "Espanol" },
-  lol: { nativeName: "Lolcat" },
+  en: { nativeName: "🇬🇧" },
+  es: { nativeName: "🇪🇸" },
+  de: { nativeName: "🇩🇪" },
+  lol: { nativeName: "😺" },
 };
 
 export const NavBar = () => {
@@ -28,6 +32,11 @@ export const NavBar = () => {
     if (colorMode === "dark") {
       toggleColorMode();
     }
+  };
+
+  const handleLanguageChange = (e) => {
+    const selectedLanguage = e.target.value;
+    i18n.changeLanguage(selectedLanguage);
   };
 
   return (
@@ -46,9 +55,14 @@ export const NavBar = () => {
       </HStack>
       <HStack>
         {localStorage.getItem("user_type") === "guide" ? (
-          <Link color="#0099D6" as={ReactLink} to="/eventForm">
-            {t("create_event")}
-          </Link>
+          <>
+            <Link color="#0099D6" as={ReactLink} to="/eventForm">
+              {t("create_event")}
+            </Link>
+            <Center height="50px">
+              <Divider orientation="vertical" />
+            </Center>
+          </>
         ) : (
           ""
         )}
@@ -60,6 +74,9 @@ export const NavBar = () => {
         >
           {t("my_events")}
         </Link>
+        <Center height="50px">
+          <Divider orientation="vertical" />
+        </Center>
         <Link
           color="#0099D6"
           as={ReactLink}
@@ -109,20 +126,13 @@ export const NavBar = () => {
             </Tooltip>
           )}
         </Button>
-        <div>
+        <Select variant="unstyled" width="50px" onChange={handleLanguageChange}>
           {Object.keys(lngs).map((lng) => (
-            <Button
-              key={lng}
-              style={{
-                fontWeight: i18n.resolvedLanguage === lng ? "bold" : "normal",
-              }}
-              type="submit"
-              onClick={() => i18n.changeLanguage(lng)}
-            >
+            <option value={lng} key={lng}>
               {lngs[lng].nativeName}
-            </Button>
+            </option>
           ))}
-        </div>
+        </Select>
         {localStorage.getItem("auth_token") !== null ? (
           <Button
             className="nav-link fakeLink"

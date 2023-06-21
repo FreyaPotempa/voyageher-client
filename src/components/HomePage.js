@@ -1,4 +1,13 @@
-import { Box, CardHeader, Center, Heading, LightMode } from "@chakra-ui/react";
+import {
+  Box,
+  CardHeader,
+  Center,
+  Flex,
+  Heading,
+  LightMode,
+  Text,
+  useColorMode,
+} from "@chakra-ui/react";
 import { EventList } from "./event/EventList";
 import { useEffect, useState } from "react";
 import "animate.css";
@@ -8,21 +17,9 @@ import "@fontsource-variable/lora";
 import { useTranslation } from "react-i18next";
 
 export const HomePage = () => {
-  const [gifLoaded, setGifLoaded] = useState(false);
-  const [showStaticImage, setShowStaticImage] = useState(false);
   const { t, i18n } = useTranslation();
+  const { colorMode } = useColorMode();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowStaticImage(true);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleGifLoaded = () => {
-    setGifLoaded(true);
-  };
   return (
     <>
       <Box position="relative">
