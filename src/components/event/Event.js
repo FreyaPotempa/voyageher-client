@@ -13,6 +13,7 @@ import {
   Image,
   Link,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { Link as ReactLink, useNavigate } from "react-router-dom";
 import { JoinLeaveButton } from "./JoinLeaveButton";
@@ -25,6 +26,7 @@ import { EventDetail } from "./EventDetail";
 
 export const Event = ({ event, fetchEvents }) => {
   const { t, i18n } = useTranslation();
+  const { colorMode } = useColorMode();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -59,16 +61,8 @@ export const Event = ({ event, fetchEvents }) => {
         <Divider />
         <Box m="2">
           <Box display="flex" alignItems="center">
-            <StarIcon />
+            <StarIcon color={colorMode === "light" ? "#096e86" : "white"} />
             {"  "} {rating?.toFixed(1)}
-            {/* {Array(5)
-              .fill("")
-              .map((_, i) => (
-                <StarIcon
-                  key={i}
-                  color={i < Math.floor(rating) ? "0099d6" : "#E0E0E0"}
-                />
-              ))} */}
             <Center ml="2" height="20px">
               <Divider orientation="vertical" />
             </Center>
