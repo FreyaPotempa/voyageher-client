@@ -31,3 +31,15 @@ export const getCurrentUser = () => {
     },
   }).then((res) => res.json());
 };
+
+export const updateUser = (userObj) => {
+  const userId = localStorage.getItem("user_id");
+  return fetch(`${url}/users/${userId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+    },
+    body: JSON.stringify(userObj),
+  });
+};

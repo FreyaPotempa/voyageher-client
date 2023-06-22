@@ -19,6 +19,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
+  Text,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
@@ -66,17 +67,6 @@ export const Guide = ({ guide_id, isOpen, onClose, getGuideRating }) => {
                 name={guide.full_name}
                 src={guide.img}
               />
-              <ModalHeader>{guide.full_name}</ModalHeader>
-              <Divider />
-              <div>{guide.location?.city}</div>
-              <div>
-                {t("about")}: {guide.bio}
-              </div>
-            </Box>
-            <Center m="4" height="250px">
-              <Divider orientation="vertical" />
-            </Center>
-            <Box mt="20">
               <Box display="flex" mt="2" alignItems="center">
                 {Array(5)
                   .fill("")
@@ -85,7 +75,7 @@ export const Guide = ({ guide_id, isOpen, onClose, getGuideRating }) => {
                       key={i}
                       color={
                         i < Math.floor(guide.average_rating)
-                          ? "0099d6"
+                          ? "#096e86"
                           : "#E0E0E0"
                       }
                     />
@@ -94,9 +84,18 @@ export const Guide = ({ guide_id, isOpen, onClose, getGuideRating }) => {
                   {guide.ratings?.length} {t("reviews-0")}
                 </Box>
               </Box>
-              <Box>
-                {t("reviews")}:{" "}
-                {guide.ratings?.map((rating) => `"${rating.review}"`)}
+
+              <Box p="6">
+                <ModalHeader>{guide.full_name}</ModalHeader>
+                <Divider />
+                <Text m="2">{guide.location?.city}</Text>
+                <Text m="2">
+                  {t("about")}: {guide.bio}
+                </Text>
+                <Text m="2">{t("reviews")}: </Text>
+                {guide.ratings?.map((rating) => (
+                  <Text m="4">"{rating.review}"</Text>
+                ))}
               </Box>
               <Box borderWidth="1px" borderRadius="lg" m="2" p="2">
                 {localStorage.getItem("user_type") === "traveler" ? (
