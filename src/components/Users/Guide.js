@@ -25,11 +25,13 @@ import {
 } from "@chakra-ui/react";
 import { StarIcon } from "../../images/StarIcon";
 import { useTranslation } from "react-i18next";
+import { useUser } from "../../useUser";
 
 export const Guide = ({ guide_id, isOpen, onClose, getGuideRating }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [guide, setGuide] = useState({});
+  const { userType } = useUser();
   const [ratingState, setRatingState] = useState({
     score: 0,
     review: "",
@@ -94,48 +96,46 @@ export const Guide = ({ guide_id, isOpen, onClose, getGuideRating }) => {
                 </Text>
                 <Text m="2">{t("reviews")}: </Text>
                 {guide.ratings?.map((rating) => (
-                  <Text m="4">"{rating.review}"</Text>
+                  <Text key={rating.id} m="4">
+                    "{rating.review}"
+                  </Text>
                 ))}
               </Box>
-              <Box borderWidth="1px" borderRadius="lg" m="2" p="2">
-                {localStorage.getItem("user_type") === "traveler" ? (
-                  <>
-                    <Heading size="md">{t("rate-this-guide")}</Heading>
-                    <Select name="score" onChange={handleGuideRating}>
-                      <option value="0">{t("select-a-rating")}</option>
-                      <option value="1">{t("awful")}</option>
-                      <option value="2">{t("poor")}</option>
-                      <option value="3">{t("okay")}</option>
-                      <option value="4">{t("good")}</option>
-                      <option value="5">{t("great")}</option>
-                    </Select>
-                    <div>
-                      <label htmlFor="review">{t("leave-a-review")}:</label>
-                      <Input
-                        type="text"
-                        name="review"
-                        value={ratingState.review}
-                        onChange={handleGuideRating}
-                      />
-                    </div>
-                    <Button
-                      size="sm"
-                      colorScheme="cyan"
-                      variant="outline"
-                      type="button"
-                      onClick={(e) =>
-                        sendRating(ratingState, guide_id).then(() =>
-                          fetchGuide()
-                        )
-                      }
-                    >
-                      {t("save-rating")}
-                    </Button>{" "}
-                  </>
-                ) : (
-                  ""
-                )}
-              </Box>
+              {userType === "traveler" ? (
+                <Box borderWidth="1px" borderRadius="lg" m="2" p="2">
+                  <Heading size="md">{t("rate-this-guide")}</Heading>
+                  <Select name="score" onChange={handleGuideRating}>
+                    <option value="0">{t("select-a-rating")}</option>
+                    <option value="1">{t("awful")}</option>
+                    <option value="2">{t("poor")}</option>
+                    <option value="3">{t("okay")}</option>
+                    <option value="4">{t("good")}</option>
+                    <option value="5">{t("great")}</option>
+                  </Select>
+                  <div>
+                    <label htmlFor="review">{t("leave-a-review")}:</label>
+                    <Input
+                      type="text"
+                      name="review"
+                      value={ratingState.review}
+                      onChange={handleGuideRating}
+                    />
+                  </div>
+                  <Button
+                    size="sm"
+                    colorScheme="cyan"
+                    variant="outline"
+                    type="button"
+                    onClick={(e) =>
+                      sendRating(ratingState, guide_id).then(() => fetchGuide())
+                    }
+                  >
+                    {t("save-rating")}
+                  </Button>{" "}
+                </Box>
+              ) : (
+                ""
+              )}
             </Box>
           </Flex>
         </ModalBody>

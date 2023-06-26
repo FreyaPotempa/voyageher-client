@@ -1,14 +1,16 @@
 import { Button, ButtonGroup, Text } from "@chakra-ui/react";
 import { joinEvent, leaveEvent } from "../managers/EventManager";
 import { useTranslation } from "react-i18next";
+import { useUser } from "../../useUser";
+import { useNavigate } from "react-router-dom";
 
 export const JoinLeaveButton = ({ event, fetchEvents }) => {
   const { t, i18n } = useTranslation();
-  if (localStorage.getItem("user_type") === "traveler") {
+  const navigate = useNavigate();
+  const { userType, userId, isLoggedIn } = useUser();
+  if (userType === "traveler" || isLoggedIn === false) {
     const isAttendee = event.attendees?.find(
-      (attendee) =>
-        parseInt(attendee.user?.id) ===
-        parseInt(localStorage.getItem("user_id"))
+      (attendee) => parseInt(attendee.user?.id) === parseInt(userId)
     );
 
     if (event.attendees?.length >= event.available_spots) {
@@ -38,11 +40,15 @@ export const JoinLeaveButton = ({ event, fetchEvents }) => {
           variant="solid"
           ml="2"
           type="button"
-          onClick={() =>
-            joinEvent(event.id).then(() => {
-              fetchEvents();
-            })
-          }
+          onClick={() => {
+            if (!isLoggedIn) {
+              navigate("/login");
+            } else {
+              joinEvent(event.id).then(() => {
+                fetchEvents();
+              });
+            }
+          }}
         >
           {t("join")}
         </Button>

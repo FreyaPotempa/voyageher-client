@@ -16,6 +16,7 @@ import {
   InputRightElement,
   Select,
   Stack,
+  useColorMode,
 } from "@chakra-ui/react";
 
 export const Register = () => {
@@ -31,6 +32,7 @@ export const Register = () => {
   const [locations, setLocations] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { colorMode } = useColorMode();
 
   const getAllLocations = () => {
     getLocations().then((data) => {
@@ -95,7 +97,7 @@ export const Register = () => {
         flexDirection="column"
         width="100wh"
         height="100vh"
-        backgroundColor="gray.200"
+        backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
         justifyContent="center"
       >
         <Stack
@@ -112,7 +114,9 @@ export const Register = () => {
               width="350"
               spacing={4}
               p="1rem"
-              backgroundColor="whiteAlpha.900"
+              backgroundColor={
+                colorMode === "light" ? "whiteAlpha.900" : "blackAlpha.800"
+              }
               boxShadow="md"
             >
               <FormControl>

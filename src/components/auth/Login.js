@@ -13,6 +13,7 @@ import {
   InputLeftElement,
   InputRightElement,
   Stack,
+  useColorMode,
 } from "@chakra-ui/react";
 
 export const Login = () => {
@@ -21,6 +22,7 @@ export const Login = () => {
   const invalidDialog = useRef();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { colorMode } = useColorMode();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -63,7 +65,7 @@ export const Login = () => {
         flexDirection="column"
         width="100wh"
         height="100vh"
-        backgroundColor="gray.200"
+        backgroundColor={colorMode === "light" ? "gray.200" : "gray.600"}
         justifyContent="center"
       >
         <Stack
@@ -81,7 +83,9 @@ export const Login = () => {
                 width="350"
                 spacing={4}
                 p="1rem"
-                backgroundColor="whiteAlpha.900"
+                backgroundColor={
+                  colorMode === "light" ? "whiteAlpha.900" : "blackAlpha.800"
+                }
                 boxShadow="md"
               >
                 <FormControl>

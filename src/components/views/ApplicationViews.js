@@ -15,11 +15,11 @@ export const ApplicationViews = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/events/edit/:event_id" element={<EventForm />} />
+      <Route path="/guides/:guide_id" element={<Guide />} />
       <Route element={<Authorized />}>
-        <Route path="/" element={<HomePage />} />
         <Route path="/eventForm" element={<EventForm />} />
-        <Route path="/events/edit/:event_id" element={<EventForm />} />
-        <Route path="/guides/:guide_id" element={<Guide />} />
         <Route path="/myevents" element={<MyEvents />} />
         <Route path="/eventDetails/:event_id" element={<EventDetail />} />
         <Route path="/dashboard" element={<Profile />} />

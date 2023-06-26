@@ -5,11 +5,7 @@ export const getAllGuides = () => {
 };
 
 export const getGuideById = (userId) => {
-  return fetch(`${url}/guides/${userId}`, {
-    headers: {
-      Authorization: `Token ${localStorage.getItem("auth_token")}`,
-    },
-  }).then((res) => res.json());
+  return fetch(`${url}/guides/${userId}`).then((res) => res.json());
 };
 
 export const sendRating = (rating, guide_id) => {

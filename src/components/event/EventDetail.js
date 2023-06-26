@@ -15,14 +15,18 @@ import {
   Text,
   Wrap,
   WrapItem,
+  useColorMode,
 } from "@chakra-ui/react";
 import { JoinLeaveButton } from "./JoinLeaveButton";
+import { useUser } from "../../useUser";
 
 export const EventDetail = () => {
+  const { colorMode } = useColorMode();
   const { event_id } = useParams();
   const { t, i18n } = useTranslation();
   const [event, setEvent] = useState({});
   const navigate = useNavigate();
+  const { userId } = useUser();
 
   const fetchEvents = () => {
     getSingleEvent(event_id).then((data) => setEvent(data));
@@ -47,20 +51,31 @@ export const EventDetail = () => {
   const remainingSpots = event.available_spots - event.attendees?.length;
 
   return (
-    <Container>
+    <Container
+      borderWidth="1px"
+      maxWidth="container.sm"
+      bg={colorMode === "light" ? "gray.200" : "gray.600"}
+      p="6"
+      borderRadius="lg"
+      boxShadow="xl"
+    >
       <Center>
-        <Heading>{event.title}</Heading>
+        <Heading p="2" m="1" fontFamily="Lora">
+          {event.title}
+        </Heading>
       </Center>
       <Box>
-        <Image
-          src={event.img_url}
-          maxWidth="600px"
-          alt="event image"
-          borderRadius="lg"
-        />
+        <Center>
+          <Image
+            src={event.img_url}
+            maxWidth="600px"
+            alt="event image"
+            borderRadius="lg"
+          />
+        </Center>
       </Box>
       <Divider />
-      <Wrap>
+      <Wrap mt="2">
         <WrapItem>
           <Box>{humanReadable}</Box>
         </WrapItem>
@@ -70,21 +85,23 @@ export const EventDetail = () => {
           </Box>
         </WrapItem>
       </Wrap>
-      <Box>
+      <Box mt="2">
         {t("guide")}: {event.host?.user?.first_name}{" "}
         {event.host?.user?.last_name}
       </Box>
-      <Box>
-        {t("details")}:{event.description}
+      <Box mt="2">
+        {t("details")}:
+        <Text p="4" m="2">
+          {event.description}
+        </Text>
       </Box>
       <Flex>
-        <Text>
+        <Text p="2">
           {remainingSpots}/{event.available_spots} {t("available-spots")}
         </Text>
         <JoinLeaveButton fetchEvents={fetchEvents} event={event} />
       </Flex>
-      {parseInt(event.host?.user?.id) ===
-      parseInt(localStorage.getItem("user_id")) ? (
+      {parseInt(event.host?.user?.id) === parseInt(userId) ? (
         <>
           <ButtonGroup
             variant="outline"
