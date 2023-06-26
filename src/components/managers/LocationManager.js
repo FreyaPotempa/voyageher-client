@@ -1,4 +1,4 @@
-const url = "https://voyageher-server-1164995fc8a4.herokuapp.com/";
+const url = "https://voyageher-server-1164995fc8a4.herokuapp.com";
 
 export const getLocations = () => {
   return fetch(`${url}/locations`).then((res) => res.json());
