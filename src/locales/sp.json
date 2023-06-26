@@ -54,5 +54,11 @@
   "close": "Cerca",
   "guide": "Guía",
   "details": "Detalles",
-  "save-changes": "Guardar cambios"
+  "save-changes": "Guardar cambios",
+  "username": "nombre de usuario",
+  "hide": "Esconder",
+  "show": "Espectáculo",
+  "sign-in": "Iniciar sesión",
+  "not-a-member-yet": "¿No eres miembro todavía?",
+  "or": "o"
 }

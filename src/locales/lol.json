@@ -54,5 +54,11 @@
   "close": "Clos",
   "guide": "Gide",
   "details": "Detayls",
-  "save-changes": "Sav Changs"
+  "save-changes": "Sav Changs",
+  "username": "usrrname",
+  "hide": "Hidz",
+  "show": "Sho",
+  "sign-in": "Sine In",
+  "not-a-member-yet": "Not a membur yet?",
+  "or": "orr"
 }

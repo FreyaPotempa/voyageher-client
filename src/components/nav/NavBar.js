@@ -6,6 +6,7 @@ import {
   HStack,
   Link,
   Select,
+  Text,
   Tooltip,
   useColorMode,
   useColorModeValue,
@@ -157,10 +158,18 @@ export const NavBar = () => {
           <>
             <Link className="nav-link" as={ReactLink} to="/login">
               {t("login")}
-            </Link>
-            <Link className="nav-link" as={ReactLink} to="/register">
+            </Link>{" "}
+            <Text color="gray.500">{t("or")}</Text>
+            <Button
+              size="sm"
+              colorScheme="cyan"
+              variant="outline"
+              className="nav-link"
+              as={ReactLink}
+              to="/register"
+            >
               {t("register")}
-            </Link>
+            </Button>
           </>
         )}{" "}
       </HStack>

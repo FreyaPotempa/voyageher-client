@@ -54,5 +54,11 @@
   "close": "Schließen",
   "guide": "Führung",
   "details": "Einzelheiten",
-  "save-changes": "Änderungen speichern"
+  "save-changes": "Änderungen speichern",
+  "username": "Nutzername",
+  "hide": "Verstecken",
+  "show": "Zeigen",
+  "sign-in": "Anmelden",
+  "not-a-member-yet": "Noch kein Mitglied?",
+  "or": "oder"
 }
