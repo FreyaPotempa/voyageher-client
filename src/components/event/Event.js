@@ -14,6 +14,7 @@ import {
   Link,
   Text,
   useColorMode,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Link as ReactLink, useNavigate } from "react-router-dom";
 import { JoinLeaveButton } from "./JoinLeaveButton";
@@ -23,6 +24,7 @@ import { useState } from "react";
 import { Guide } from "../Users/Guide";
 import { StarIcon } from "../../images/StarIcon";
 import { EventDetail } from "./EventDetail";
+import { useUser } from "../../useUser";
 
 export const Event = ({ event, fetchEvents }) => {
   const { t, i18n } = useTranslation();
@@ -31,6 +33,7 @@ export const Event = ({ event, fetchEvents }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [reviewLength, setReviewLength] = useState(0);
+  const { userId } = useUser();
 
   const handleLinkClick = () => {
     setIsModalOpen(true);
@@ -106,8 +109,7 @@ export const Event = ({ event, fetchEvents }) => {
           {remainingSpots}/{event.available_spots} {t("available-spots")}
         </Text>
         <JoinLeaveButton event={event} fetchEvents={fetchEvents} />
-        {parseInt(event.host?.user?.id) ===
-        parseInt(localStorage.getItem("user_id")) ? (
+        {parseInt(event.host?.user?.id) === parseInt(userId) ? (
           <>
             <ButtonGroup
               variant="outline"

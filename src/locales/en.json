@@ -54,5 +54,10 @@
   "close": "Close",
   "guide": "Guide",
   "details": "Details",
-  "save-changes": "Save Changes"
+  "save-changes": "Save Changes",
+  "username": "username",
+  "hide": "Hide",
+  "show": "Show",
+  "sign-in": "Sign In",
+  "not-a-member-yet": "Not a member yet?"
 }

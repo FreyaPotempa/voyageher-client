@@ -1,19 +1,11 @@
 const url = "http://localhost:8000";
 
 export const getEvents = () => {
-  return fetch(`${url}/events`, {
-    headers: {
-      Authorization: `Token ${localStorage.getItem("auth_token")}`,
-    },
-  }).then((res) => res.json());
+  return fetch(`${url}/events`).then((res) => res.json());
 };
 
 export const getSingleEvent = (eventId) => {
-  return fetch(`${url}/events/${eventId}`, {
-    headers: {
-      Authorization: `Token ${localStorage.getItem("auth_token")}`,
-    },
-  }).then((res) => res.json());
+  return fetch(`${url}/events/${eventId}`).then((res) => res.json());
 };
 
 export const createEvent = (newEventObj) => {

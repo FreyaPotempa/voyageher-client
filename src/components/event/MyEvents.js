@@ -3,14 +3,14 @@ import { getEvents } from "../managers/EventManager";
 import { Box, Center, Container, Heading, SimpleGrid } from "@chakra-ui/react";
 import { Event } from "./Event";
 import { useTranslation } from "react-i18next";
+import { useUser } from "../../useUser";
 
 export const MyEvents = () => {
   const { t, i18n } = useTranslation();
   const [events, setEvents] = useState([]);
   const [myEvents, setMyEvents] = useState([]);
-  const userType = localStorage.getItem("user_type");
+  const { userType, userId } = useUser();
 
-  const currentUser = parseInt(localStorage.getItem("user_id"));
   const fetchEvents = () => {
     getEvents().then((data) => setEvents(data));
   };
@@ -20,16 +20,14 @@ export const MyEvents = () => {
     if (events.length > 0) {
       if (userType === "traveler") {
         userEvents = events.filter((event) =>
-          event.attendees.some((attendee) => attendee.user.id === currentUser)
+          event.attendees.some((attendee) => attendee.user.id === userId)
         );
       } else {
-        userEvents = events.filter(
-          (event) => event.host.user?.id === currentUser
-        );
+        userEvents = events.filter((event) => event.host.user?.id === userId);
       }
       setMyEvents(userEvents);
     }
-  }, [events, currentUser, userType]);
+  }, [events, userId, userType]);
 
   useEffect(() => {
     fetchEvents();

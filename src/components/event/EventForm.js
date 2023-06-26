@@ -8,6 +8,7 @@ import {
 import { getLocations } from "../managers/LocationManager";
 import {
   Button,
+  Center,
   Container,
   Flex,
   FormControl,
@@ -60,11 +61,13 @@ export const EventForm = () => {
         backgroundColor="gray.100"
         justifyContent="center"
       >
-        <Stack flexDir="column" mb="2" justifyContent="center">
-          <Heading as="h2" size="md">
-            {event_id ? `${t("edit")}` : `${t("create")}`} {t("event")}
-          </Heading>
-          <Container maxW="container.sm">
+        <Container maxW="container.sm">
+          <Stack flexDir="column" mb="2" justifyContent="center">
+            <Center>
+              <Heading as="h1" size="lg" fontFamily="Lora">
+                {event_id ? `${t("edit")}` : `${t("create")}`} {t("event")}
+              </Heading>
+            </Center>
             <form className="eventForm">
               <Stack
                 width="350"
@@ -159,8 +162,8 @@ export const EventForm = () => {
                 </Button>
               </Stack>
             </form>
-          </Container>
-        </Stack>
+          </Stack>
+        </Container>
       </Flex>
     </>
   );

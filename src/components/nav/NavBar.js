@@ -14,6 +14,7 @@ import { useNavigate, Link as ReactLink } from "react-router-dom";
 import { LogoSVG } from "../../images/VoyageHerLogo";
 import { LogoSVGDarkMode } from "../../images/LogoDarkMode";
 import { useTranslation, Trans } from "react-i18next";
+import { useUser } from "../../useUser";
 
 const lngs = {
   en: { nativeName: "🇬🇧" },
@@ -27,6 +28,7 @@ export const NavBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const bgColor = useColorModeValue("#096E86", "#7FFFFF");
   const { t, i18n } = useTranslation();
+  const { isLoggedIn, userType, logoutUser } = useUser();
 
   const LogoutColorMode = () => {
     if (colorMode === "dark") {
@@ -54,7 +56,7 @@ export const NavBar = () => {
         </Link>
       </HStack>
       <HStack>
-        {localStorage.getItem("user_type") === "guide" ? (
+        {userType === "guide" ? (
           <>
             <Link color="#0099D6" as={ReactLink} to="/eventForm">
               {t("create_event")}
@@ -66,25 +68,31 @@ export const NavBar = () => {
         ) : (
           ""
         )}
-        <Link
-          color="#0099D6"
-          as={ReactLink}
-          to="/myevents"
-          className="navbar__item"
-        >
-          {t("my_events")}
-        </Link>
-        <Center height="50px">
-          <Divider orientation="vertical" />
-        </Center>
-        <Link
-          color="#0099D6"
-          as={ReactLink}
-          to="/dashboard"
-          className="navbar__item"
-        >
-          {t("profile")}
-        </Link>
+        {isLoggedIn ? (
+          <>
+            <Link
+              color="#0099D6"
+              as={ReactLink}
+              to="/myevents"
+              className="navbar__item"
+            >
+              {t("my_events")}
+            </Link>
+            <Center height="50px">
+              <Divider orientation="vertical" />
+            </Center>
+            <Link
+              color="#0099D6"
+              as={ReactLink}
+              to="/dashboard"
+              className="navbar__item"
+            >
+              {t("profile")}
+            </Link>
+          </>
+        ) : (
+          ""
+        )}
       </HStack>
       <HStack>
         <Select variant="unstyled" width="50px" onChange={handleLanguageChange}>
@@ -133,14 +141,12 @@ export const NavBar = () => {
             </Tooltip>
           )}
         </Button>
-        {localStorage.getItem("auth_token") !== null ? (
+        {isLoggedIn ? (
           <Button
             size="xs"
             className="nav-link fakeLink"
             onClick={() => {
-              localStorage.removeItem("auth_token");
-              localStorage.removeItem("user_type");
-              localStorage.removeItem("user_id");
+              logoutUser();
               LogoutColorMode();
               navigate("/login");
             }}
@@ -149,10 +155,10 @@ export const NavBar = () => {
           </Button>
         ) : (
           <>
-            <Link className="nav-link" to="/login">
+            <Link className="nav-link" as={ReactLink} to="/login">
               {t("login")}
             </Link>
-            <Link className="nav-link" to="/register">
+            <Link className="nav-link" as={ReactLink} to="/register">
               {t("register")}
             </Link>
           </>

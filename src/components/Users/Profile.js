@@ -15,10 +15,12 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { UploadWidget } from "../../UploadWidget";
+import { useUser } from "../../useUser";
 
 export const Profile = () => {
   const { colorMode } = useColorMode();
   const { t } = useTranslation();
+  const { userType } = useUser();
   const toast = useToast();
   const [user, setUser] = useState({
     traveler: {
@@ -38,7 +40,7 @@ export const Profile = () => {
   }, []);
 
   const updateImageUrl = (url) => {
-    if (localStorage.getItem("user_type") === "traveler") {
+    if (userType === "traveler") {
       setUser((user) => ({
         ...user,
         traveler: { ...user.traveler, img: url },
@@ -50,7 +52,7 @@ export const Profile = () => {
 
   const changeBio = (e) => {
     const bio = e.target.value;
-    if (localStorage.getItem("user_type") === "traveler") {
+    if (userType === "traveler") {
       setUser((user) => ({
         ...user,
         traveler: { ...user.traveler, bio: bio },
@@ -60,14 +62,14 @@ export const Profile = () => {
     }
   };
 
-  console.log(user);
-
   return (
     <Container
+      borderWidth="1px"
       maxWidth="550px"
       bgColor={colorMode === "light" ? "gray.200" : "gray.600"}
       p="6"
       borderRadius="lg"
+      boxShadow="xl"
     >
       <Avatar
         size="2xl"
@@ -81,11 +83,7 @@ export const Profile = () => {
         {user.first_name} {user.last_name}
       </Heading>
       <Editable
-        value={
-          localStorage.getItem("user_type") === "traveler"
-            ? user.traveler?.bio
-            : user.guide?.bio
-        }
+        value={userType === "traveler" ? user.traveler?.bio : user.guide?.bio}
       >
         <EditablePreview />
         <EditableTextarea onChange={changeBio} />
