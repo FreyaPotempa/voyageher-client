@@ -14,6 +14,7 @@ import {
   Link,
   Text,
   useColorMode,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Link as ReactLink, useNavigate } from "react-router-dom";
 import { JoinLeaveButton } from "./JoinLeaveButton";
