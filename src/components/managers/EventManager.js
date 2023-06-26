@@ -1,4 +1,4 @@
-const url = "http://localhost:8000";
+const url = "https://voyageher-server-1164995fc8a4.herokuapp.com/";
 
 export const getEvents = () => {
   return fetch(`${url}/events`).then((res) => res.json());
