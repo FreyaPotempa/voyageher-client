@@ -20,11 +20,16 @@ export const MyEvents = () => {
     if (events.length > 0) {
       if (userType === "traveler") {
         userEvents = events.filter((event) =>
-          event.attendees.some((attendee) => attendee.user.id === userId)
+          event.attendees.some(
+            (attendee) => attendee.user.id === parseInt(userId)
+          )
         );
       } else {
-        userEvents = events.filter((event) => event.host.user?.id === userId);
+        userEvents = events.filter(
+          (event) => event.host.user?.id === parseInt(userId)
+        );
       }
+
       setMyEvents(userEvents);
     }
   }, [events, userId, userType]);

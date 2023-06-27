@@ -253,6 +253,23 @@ export const Register = () => {
                   </InputGroup>
                 </FormControl>
                 <FormControl>
+                  <InputGroup>
+                    <Input
+                      ref={verifyPassword}
+                      type={showPassword ? "text" : "password"}
+                      name="verifyPassword"
+                      className="form-control"
+                      placeholder="verify Password"
+                      required
+                    />
+                    <InputRightElement width="4.5rem">
+                      <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                        {showPassword ? "Hide" : "Show"}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
                   <Input
                     ref={bio}
                     type="text"

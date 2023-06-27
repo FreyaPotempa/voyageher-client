@@ -76,11 +76,10 @@ export const EventList = () => {
 
   const fetchEvents = () => {
     getEvents().then((data) => {
-      const sortedEvents = data.sort((a, b) => {
-        const dateA = new Date(a.date_time);
-        const dateB = new Date(b.date_time);
-        return dateA - dateB;
-      });
+      const currentDate = new Date();
+      const sortedEvents = data
+        .filter((event) => new Date(event.date_time) > currentDate)
+        .sort((a, b) => new Date(a.date_time) - new Date(b.date_time));
       setEvents(sortedEvents);
       filterEvents(sortedEvents);
     });
@@ -91,7 +90,6 @@ export const EventList = () => {
     getLocations().then((data) => setLocations(data));
   }, [selectCity, dateRange]);
 
-  console.log(i18n.resolvedLanguage);
   return (
     <>
       <Flex>
