@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Voyageher
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Voyageher repository! This is the client side of the Voyageher application, a travel tour application capstone for [Nashville Software School C62](https://github.com/nss-day-cohort-62). Built by [Freya Potempa](https://github.com/FreyaPotempa).
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Introduction](#introduction)
+- [Features](#features)
+- [Local Setup](#local-setup)
+  - [Installation](#installation)
+- [Technologies Used](#technologies-used)
 
-### `npm start`
+## Introduction
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+In this React App, users can interact with the site unauthenticated, or register as Travelers or Guides. All users are able to view and sort events, as well as view the site in multiple languages.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Guides are able to CRUD events. Travelers are able to join or leave events and rate and review guides.
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Unauthenticated Users:
 
-### `npm run build`
+- View events and event details
+- View Guides with their ratings and reviews
+- Sort events by date and city
+- View the site in different languages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Guide Users:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Create new events with image upload
+- Edit their existing events
+- Delete their existing events
+- View their ratings and reviews
+- Edit their profile image and bio
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Traveler Users:
 
-### `npm run eject`
+- Join or Leave Events
+- Rate and review guides
+- View their joined events
+- Edit their profile image and bio
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Local Setup
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you would like to test this code locally, follow these steps:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Installation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Clone the repository to your local machine
 
-## Learn More
+   ```bash
+   git clone git@github.com:FreyaPotempa/voyageher-client.git
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. Navigate to the project directory
 
-### Code Splitting
+   ```bash
+   cd voyageher-client
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```
 
-### Analyzing the Bundle Size
+3. Install the dependencies
+   ```bash
+   npm install
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+For more information on React, Chakra UI and i18next:
+[![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=white)](https://legacy.reactjs.org/docs/getting-started.html)
+[![Chakra UI](https://shields.io/badge/chakra--ui-black?logo=chakraui&style=for-the-badge%22)](https://chakra-ui.com/getting-started)
+[![i18next](https://img.shields.io/badge/i18-next-blue)](https://www.i18next.com/overview/getting-started)
 
-### Making a Progressive Web App
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React
+- Chakra UI
+- React-Calendar
+- i18next
+- Cloudinary
