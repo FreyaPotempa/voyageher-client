@@ -91,7 +91,6 @@ export const EventList = () => {
     getLocations().then((data) => setLocations(data));
   }, [selectCity, dateRange]);
 
-  console.log(i18n.resolvedLanguage);
   return (
     <>
       <Flex>
